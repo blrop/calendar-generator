@@ -174,7 +174,7 @@
             "July", "August", "September", "October", "November", "December"
         ];
 
-        const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
         function initCalendar() {
             updateCalendar();
@@ -215,7 +215,10 @@
                 const firstDay = new Date(year, month, 1);
                 const lastDay = new Date(year, month + 1, 0);
                 const startDate = new Date(firstDay);
-                startDate.setDate(startDate.getDate() - firstDay.getDay());
+                // Adjust for Monday start: Sunday is 0, Monday is 1, etc.
+                const dayOfWeek = firstDay.getDay();
+                const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+                startDate.setDate(startDate.getDate() - mondayOffset);
                 
                 // Add calendar days
                 for (let i = 0; i < 42; i++) {
