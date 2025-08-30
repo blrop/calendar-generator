@@ -23,14 +23,14 @@
 
         .calendar-container {
             background: white;
-            max-width: 1200px;
+            max-width: 1000px;
             width: 100%;
         }
 
 
 
         .month-container {
-            padding: 20px;
+            padding: 15px 10px;
             display: inline-block;
             width: 33.33%;
             vertical-align: top;
@@ -60,14 +60,14 @@
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            max-width: 350px;
+            max-width: 280px;
             margin: 0 auto;
         }
 
 
 
         .calendar-day {
-            padding: 8px 5px;
+            padding: 8px 2px;
             text-align: center;
             min-height: 35px;
             display: flex;
@@ -115,6 +115,27 @@
                 padding: 6px 4px;
                 min-height: 30px;
                 font-size: 14px;
+            }
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .calendar-container {
+                max-width: 100%;
+                box-shadow: none;
+            }
+            
+            .month-container {
+                padding: 10px 5px;
+                page-break-inside: avoid;
+            }
+            
+            .calendar-grid {
+                max-width: 250px;
             }
         }
     </style>
