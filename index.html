@@ -176,7 +176,6 @@
         </div>
         
         <div class="calendar-footer">
-            <button class="today-btn" onclick="goToToday()">Go to Today</button>
         </div>
     </div>
 
@@ -256,10 +255,7 @@
             updateCalendar();
         }
 
-        function goToToday() {
-            currentDate = new Date();
-            updateCalendar();
-        }
+
 
         // Initialize calendar when page loads
         window.onload = initCalendar;
