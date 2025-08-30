@@ -26,17 +26,48 @@
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            max-width: 400px;
+            max-width: 1200px;
             width: 100%;
         }
 
 
+
+        .month-container {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: inline-block;
+            width: 33.33%;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        .month-container:nth-child(3n+1) {
+            border-left: none;
+        }
+
+        .month-container:nth-child(3n) {
+            border-right: none;
+        }
+
+        .month-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 1px;
             background: #e9ecef;
+            max-width: 350px;
+            margin: 0 auto;
         }
 
         .calendar-day-header {
@@ -117,8 +148,8 @@
     <div class="calendar-container">
 
         
-        <div class="calendar-grid" id="calendarGrid">
-            <!-- Calendar will be generated here -->
+        <div id="yearContainer">
+            <!-- All 12 months will be generated here -->
         </div>
         
         <div class="calendar-footer">
@@ -141,47 +172,64 @@
 
         function updateCalendar() {
             const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
+            const yearContainer = document.getElementById('yearContainer');
+            yearContainer.innerHTML = '';
             
-            // Get first day of month and number of days
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const startDate = new Date(firstDay);
-            startDate.setDate(startDate.getDate() - firstDay.getDay());
-            
-            const calendarGrid = document.getElementById('calendarGrid');
-            calendarGrid.innerHTML = '';
-            
-            // Add day headers
-            dayNames.forEach(day => {
-                const dayHeader = document.createElement('div');
-                dayHeader.className = 'calendar-day-header';
-                dayHeader.textContent = day;
-                calendarGrid.appendChild(dayHeader);
-            });
-            
-            // Add calendar days
-            for (let i = 0; i < 42; i++) {
-                const date = new Date(startDate);
-                date.setDate(startDate.getDate() + i);
+            // Generate all 12 months
+            for (let month = 0; month < 12; month++) {
+                const monthContainer = document.createElement('div');
+                monthContainer.className = 'month-container';
                 
-                const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
+                // Add month title
+                const monthTitle = document.createElement('div');
+                monthTitle.className = 'month-title';
+                monthTitle.textContent = monthNames[month];
+                monthContainer.appendChild(monthTitle);
                 
-                // Check if it's current month
-                if (date.getMonth() !== month) {
-                    dayElement.classList.add('other-month');
+                // Create calendar grid for this month
+                const calendarGrid = document.createElement('div');
+                calendarGrid.className = 'calendar-grid';
+                
+                // Add day headers
+                dayNames.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'calendar-day-header';
+                    dayHeader.textContent = day;
+                    calendarGrid.appendChild(dayHeader);
+                });
+                
+                // Get first day of month and number of days
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
+                
+                // Add calendar days
+                for (let i = 0; i < 42; i++) {
+                    const date = new Date(startDate);
+                    date.setDate(startDate.getDate() + i);
+                    
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    
+                    // Check if it's current month
+                    if (date.getMonth() !== month) {
+                        dayElement.classList.add('other-month');
+                    }
+                    
+                    // Check if it's today
+                    const today = new Date();
+                    if (date.toDateString() === today.toDateString()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    dayElement.textContent = date.getDate();
+                    
+                    calendarGrid.appendChild(dayElement);
                 }
                 
-                // Check if it's today
-                const today = new Date();
-                if (date.toDateString() === today.toDateString()) {
-                    dayElement.classList.add('today');
-                }
-                
-                dayElement.textContent = date.getDate();
-                
-                calendarGrid.appendChild(dayElement);
+                monthContainer.appendChild(calendarGrid);
+                yearContainer.appendChild(monthContainer);
             }
         }
 
