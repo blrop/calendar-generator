@@ -30,52 +30,7 @@
             width: 100%;
         }
 
-        .calendar-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
 
-        .calendar-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .calendar-subtitle {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .calendar-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: #f8f9fa;
-        }
-
-        .nav-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 50%;
-            transition: background-color 0.3s;
-            color: #667eea;
-        }
-
-        .nav-btn:hover {
-            background-color: #e9ecef;
-        }
-
-        .current-month {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-        }
 
         .calendar-grid {
             display: grid;
@@ -160,16 +115,7 @@
 </head>
 <body>
     <div class="calendar-container">
-        <div class="calendar-header">
-            <div class="calendar-title">Calendar Generator</div>
-            <div class="calendar-subtitle">Navigate and explore dates</div>
-        </div>
-        
-        <div class="calendar-nav">
-            <button class="nav-btn" onclick="previousMonth()">‹</button>
-            <div class="current-month" id="currentMonth"></div>
-            <button class="nav-btn" onclick="nextMonth()">›</button>
-        </div>
+
         
         <div class="calendar-grid" id="calendarGrid">
             <!-- Calendar will be generated here -->
@@ -245,15 +191,7 @@
 
 
 
-        function previousMonth() {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            updateCalendar();
-        }
 
-        function nextMonth() {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            updateCalendar();
-        }
 
 
 
