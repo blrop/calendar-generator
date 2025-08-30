@@ -69,6 +69,29 @@
             min-width: 80px;
         }
 
+        .layout-switch {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .radio-label {
+            display: inline-block;
+            margin: 0 15px;
+            cursor: pointer;
+            font-size: 14px;
+            color: black;
+        }
+
+        .radio-label input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .radio-label:hover {
+            color: #667eea;
+        }
+
         .month-title {
             font-size: 14px;
             font-weight: 600;
@@ -83,6 +106,15 @@
             grid-template-columns: repeat(7, 1fr);
             max-width: 180px;
             margin: 0 auto;
+        }
+
+        .calendar-grid.vertical {
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+        }
+
+        .calendar-grid.horizontal {
+            grid-template-columns: repeat(7, 1fr);
         }
 
 
@@ -187,6 +219,10 @@
                 padding: 4px 8px;
                 display: none;
             }
+            
+            .layout-switch {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -198,6 +234,17 @@
             <button class="year-nav-btn" onclick="previousYear()">‹</button>
             <div class="year-title" id="yearTitle"></div>
             <button class="year-nav-btn" onclick="nextYear()">›</button>
+        </div>
+        
+        <div class="layout-switch">
+            <label class="radio-label">
+                <input type="radio" name="layout" value="horizontal" checked onchange="changeLayout()">
+                <span>Horizontal</span>
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="layout" value="vertical" onchange="changeLayout()">
+                <span>Vertical</span>
+            </label>
         </div>
         <div id="yearContainer">
             <!-- All 12 months will be generated here -->
@@ -242,7 +289,7 @@
                 
                 // Create calendar grid for this month
                 const calendarGrid = document.createElement('div');
-                calendarGrid.className = 'calendar-grid';
+                calendarGrid.className = 'calendar-grid horizontal';
                 
 
                 
@@ -300,6 +347,16 @@
         function nextYear() {
             currentDate.setFullYear(currentDate.getFullYear() + 1);
             updateCalendar();
+        }
+
+        function changeLayout() {
+            const selectedLayout = document.querySelector('input[name="layout"]:checked').value;
+            const calendarGrids = document.querySelectorAll('.calendar-grid');
+            
+            calendarGrids.forEach(grid => {
+                grid.classList.remove('horizontal', 'vertical');
+                grid.classList.add(selectedLayout);
+            });
         }
 
         // Initialize calendar when page loads
