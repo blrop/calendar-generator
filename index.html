@@ -108,9 +108,7 @@
             transform: scale(1.05);
         }
 
-        .calendar-day.other-month {
-            color: #adb5bd;
-        }
+
 
 
 
@@ -225,17 +223,19 @@
                     const date = new Date(startDate);
                     date.setDate(startDate.getDate() + i);
                     
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day';
-                    
-                    // Check if it's current month
-                    if (date.getMonth() !== month) {
-                        dayElement.classList.add('other-month');
+                    // Only show days that belong to the current month
+                    if (date.getMonth() === month) {
+                        const dayElement = document.createElement('div');
+                        dayElement.className = 'calendar-day';
+                        dayElement.textContent = date.getDate();
+                        calendarGrid.appendChild(dayElement);
+                    } else {
+                        // Add empty cell for days outside the month
+                        const emptyElement = document.createElement('div');
+                        emptyElement.className = 'calendar-day';
+                        emptyElement.textContent = '';
+                        calendarGrid.appendChild(emptyElement);
                     }
-                    
-                    dayElement.textContent = date.getDate();
-                    
-                    calendarGrid.appendChild(dayElement);
                 }
                 
                 monthContainer.appendChild(calendarGrid);
