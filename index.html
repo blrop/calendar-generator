@@ -82,6 +82,10 @@
             color: black;
         }
 
+        .calendar-day.weekend {
+            color: #d32f2f;
+        }
+
 
 
 
@@ -174,10 +178,14 @@
                 calendarGrid.className = 'calendar-grid';
                 
                 // Add day headers
-                dayNames.forEach(day => {
+                dayNames.forEach((day, index) => {
                     const dayHeader = document.createElement('div');
                     dayHeader.className = 'calendar-day-header';
                     dayHeader.textContent = day;
+                    // Add weekend styling to Saturday (index 5) and Sunday (index 6)
+                    if (index === 5 || index === 6) {
+                        dayHeader.style.color = '#d32f2f';
+                    }
                     calendarGrid.appendChild(dayHeader);
                 });
                 
@@ -200,6 +208,12 @@
                         const dayElement = document.createElement('div');
                         dayElement.className = 'calendar-day';
                         dayElement.textContent = date.getDate();
+                        
+                        // Check if it's weekend (Saturday = 6, Sunday = 0)
+                        if (date.getDay() === 6 || date.getDay() === 0) {
+                            dayElement.classList.add('weekend');
+                        }
+                        
                         calendarGrid.appendChild(dayElement);
                     } else {
                         // Add empty cell for days outside the month
