@@ -40,12 +40,33 @@
         .year-header {
             padding: 15px 10px;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .year-nav-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+            color: black;
+            font-weight: bold;
+        }
+
+        .year-nav-btn:hover {
+            background-color: #f0f0f0;
         }
 
         .year-title {
             font-size: 20px;
             font-weight: 700;
             color: black;
+            min-width: 80px;
         }
 
         .month-title {
@@ -157,6 +178,11 @@
             .year-title {
                 font-size: 16px;
             }
+            
+            .year-nav-btn {
+                font-size: 18px;
+                padding: 4px 8px;
+            }
         }
     </style>
 </head>
@@ -165,7 +191,9 @@
 
         
         <div class="year-header">
+            <button class="year-nav-btn" onclick="previousYear()">‹</button>
             <div class="year-title" id="yearTitle"></div>
+            <button class="year-nav-btn" onclick="nextYear()">›</button>
         </div>
         <div id="yearContainer">
             <!-- All 12 months will be generated here -->
@@ -259,6 +287,16 @@
 
 
 
+
+        function previousYear() {
+            currentDate.setFullYear(currentDate.getFullYear() - 1);
+            updateCalendar();
+        }
+
+        function nextYear() {
+            currentDate.setFullYear(currentDate.getFullYear() + 1);
+            updateCalendar();
+        }
 
         // Initialize calendar when page loads
         window.onload = initCalendar;
