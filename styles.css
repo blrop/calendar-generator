@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.calendar-container {
+    background: white;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.month-container {
+    padding: 8px 4px;
+    display: inline-block;
+    width: 33.33%;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+.year-header {
+    padding: 15px 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.year-nav-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    color: black;
+    font-weight: bold;
+}
+
+.year-nav-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.year-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+    min-width: 80px;
+}
+
+.layout-switch {
+    text-align: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.radio-label {
+    display: inline-block;
+    margin: 0 15px;
+    cursor: pointer;
+    font-size: 14px;
+    color: black;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 5px;
+}
+
+.radio-label:hover {
+    color: #667eea;
+}
+
+.month-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+    margin-bottom: 8px;
+    padding: 5px;
+}
+
+.calendar-grid {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 180px;
+    margin: 0 auto;
+}
+
+.calendar-grid.horizontal {
+    flex-direction: row;
+}
+
+.calendar-grid.vertical {
+    flex-direction: column;
+    height: 140px;
+}
+
+.calendar-day {
+    padding: 4px 1px;
+    text-align: right;
+    min-height: 20px;
+    width: calc(100% / 7);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: black;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.calendar-grid.vertical .calendar-day {
+    width: auto;
+    height: calc(100% / 7);
+}
+
+.calendar-day.weekend {
+    color: #d32f2f;
+}
+
+.calendar-footer {
+    padding: 20px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .calendar-container {
+        margin: 10px;
+    }
+    
+    .calendar-day {
+        padding: 6px 4px;
+        min-height: 30px;
+        font-size: 14px;
+    }
+}
+
+@media print {
+    body {
+        padding: 0;
+        margin: 0;
+        align-items: flex-start;
+    }
+    
+    .calendar-container {
+        max-width: 100%;
+        box-shadow: none;
+    }
+    
+    .month-container {
+        padding: 4px 2px;
+        page-break-inside: avoid;
+    }
+    
+    .month-title {
+        font-size: 12px;
+        margin-bottom: 4px;
+        padding: 3px;
+    }
+    
+    .calendar-grid {
+        max-width: 150px;
+    }
+    
+    .calendar-grid.vertical {
+        height: 120px;
+    }
+    
+    .calendar-grid.vertical .calendar-day {
+        width: auto;
+        height: calc(100% / 7);
+    }
+    
+    .calendar-day {
+        padding: 2px 0px;
+        min-height: 16px;
+        font-size: 10px;
+        text-align: right;
+        justify-content: flex-end;
+    }
+    
+    .year-header {
+        padding: 8px 5px;
+    }
+    
+    .year-title {
+        font-size: 16px;
+    }
+    
+    .year-nav-btn {
+        font-size: 18px;
+        padding: 4px 8px;
+        display: none;
+    }
+    
+    .layout-switch {
+        display: none;
+    }
+}
