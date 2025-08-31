@@ -102,19 +102,19 @@
         }
 
         .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             max-width: 180px;
             margin: 0 auto;
         }
 
-        .calendar-grid.vertical {
-            grid-template-columns: repeat(7, 1fr);
-            grid-template-rows: repeat(6, 1fr);
+        .calendar-grid.horizontal {
+            flex-direction: row;
         }
 
-        .calendar-grid.horizontal {
-            grid-template-columns: repeat(7, 1fr);
+        .calendar-grid.vertical {
+            flex-direction: column;
+            height: 120px;
         }
 
 
@@ -123,11 +123,13 @@
             padding: 4px 1px;
             text-align: right;
             min-height: 20px;
+            width: calc(100% / 7);
             display: flex;
             align-items: center;
             justify-content: flex-end;
             color: black;
             font-size: 12px;
+            box-sizing: border-box;
         }
 
         .calendar-day.weekend {
@@ -198,6 +200,10 @@
                 max-width: 150px;
             }
             
+            .calendar-grid.vertical {
+                height: 100px;
+            }
+            
             .calendar-day {
                 padding: 2px 0px;
                 min-height: 16px;
@@ -250,7 +256,8 @@
             <!-- All 12 months will be generated here -->
         </div>
         
-        <div class="calendar-footer">
+        <div class="calendar-footer" id="aaa">
+            12345
         </div>
     </div>
 
@@ -302,29 +309,73 @@
                 const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
                 startDate.setDate(startDate.getDate() - mondayOffset);
                 
-                // Add calendar days
-                for (let i = 0; i < 42; i++) {
-                    const date = new Date(startDate);
-                    date.setDate(startDate.getDate() + i);
+                // Get selected layout
+                const selectedLayout = document.querySelector('input[name="layout"]:checked').value;
+                
+                if (selectedLayout === 'vertical') {
+                    // Vertical layout: fill columns first
+                    const daysInMonth = [];
                     
-                    // Only show days that belong to the current month
-                    if (date.getMonth() === month) {
-                        const dayElement = document.createElement('div');
-                        dayElement.className = 'calendar-day';
-                        dayElement.textContent = date.getDate();
+                    // Collect all days that belong to the current month
+                    for (let i = 0; i < 42; i++) {
+                        const date = new Date(startDate);
+                        date.setDate(startDate.getDate() + i);
                         
-                        // Check if it's weekend (Saturday = 6, Sunday = 0)
-                        if (date.getDay() === 6 || date.getDay() === 0) {
-                            dayElement.classList.add('weekend');
+                        if (date.getMonth() === month) {
+                            daysInMonth.push({
+                                date: date,
+                                day: date.getDate(),
+                                isWeekend: date.getDay() === 6 || date.getDay() === 0
+                            });
                         }
+                    }
+                    
+                    // Arrange vertically: 7 columns, 6 rows
+                    for (let col = 0; col < 7; col++) {
+                        for (let row = 0; row < 6; row++) {
+                            const index = col * 6 + row;
+                            const dayData = daysInMonth[index];
+                            
+                            const dayElement = document.createElement('div');
+                            dayElement.className = 'calendar-day';
+                            
+                            if (dayData) {
+                                dayElement.textContent = dayData.day;
+                                if (dayData.isWeekend) {
+                                    dayElement.classList.add('weekend');
+                                }
+                            } else {
+                                dayElement.textContent = '';
+                            }
+                            
+                            calendarGrid.appendChild(dayElement);
+                        }
+                    }
+                } else {
+                    // Horizontal layout: fill rows first
+                    for (let i = 0; i < 42; i++) {
+                        const date = new Date(startDate);
+                        date.setDate(startDate.getDate() + i);
                         
-                        calendarGrid.appendChild(dayElement);
-                    } else {
-                        // Add empty cell for days outside the month
-                        const emptyElement = document.createElement('div');
-                        emptyElement.className = 'calendar-day';
-                        emptyElement.textContent = '';
-                        calendarGrid.appendChild(emptyElement);
+                        // Only show days that belong to the current month
+                        if (date.getMonth() === month) {
+                            const dayElement = document.createElement('div');
+                            dayElement.className = 'calendar-day';
+                            dayElement.textContent = date.getDate();
+                            
+                            // Check if it's weekend (Saturday = 6, Sunday = 0)
+                            if (date.getDay() === 6 || date.getDay() === 0) {
+                                dayElement.classList.add('weekend');
+                            }
+                            
+                            calendarGrid.appendChild(dayElement);
+                        } else {
+                            // Add empty cell for days outside the month
+                            const emptyElement = document.createElement('div');
+                            emptyElement.className = 'calendar-day';
+                            emptyElement.textContent = '';
+                            calendarGrid.appendChild(emptyElement);
+                        }
                     }
                 }
                 
@@ -350,13 +401,7 @@
         }
 
         function changeLayout() {
-            const selectedLayout = document.querySelector('input[name="layout"]:checked').value;
-            const calendarGrids = document.querySelectorAll('.calendar-grid');
-            
-            calendarGrids.forEach(grid => {
-                grid.classList.remove('horizontal', 'vertical');
-                grid.classList.add(selectedLayout);
-            });
+            updateCalendar();
         }
 
         // Initialize calendar when page loads
