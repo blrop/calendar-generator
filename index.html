@@ -254,11 +254,11 @@
         
         <div class="layout-switch">
             <label class="radio-label">
-                <input type="radio" name="layout" value="horizontal" checked onchange="changeLayout()">
+                <input type="radio" name="layout" value="horizontal" onchange="changeLayout()">
                 <span>Horizontal</span>
             </label>
             <label class="radio-label">
-                <input type="radio" name="layout" value="vertical" onchange="changeLayout()">
+                <input type="radio" name="layout" value="vertical" checked onchange="changeLayout()">
                 <span>Vertical</span>
             </label>
         </div>
@@ -304,7 +304,7 @@
                 
                 // Create calendar grid for this month
                 const calendarGrid = document.createElement('div');
-                calendarGrid.className = 'calendar-grid horizontal';
+                calendarGrid.className = 'calendar-grid vertical';
                 
 
                 
