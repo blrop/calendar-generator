@@ -130,9 +130,43 @@ body {
     color: #d32f2f;
 }
 
+.calendar-day.clickable {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.calendar-day.clickable:hover {
+    background-color: #f0f0f0;
+}
+
+.calendar-day.colored {
+    background-color: #e3f2fd;
+    border: 1px solid #2196f3;
+}
+
+.calendar-day.colored.weekend {
+    background-color: #ffebee;
+    border: 1px solid #f44336;
+}
+
 .calendar-footer {
     padding: 20px;
     text-align: center;
+}
+
+.clear-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.clear-btn:hover {
+    background: #d32f2f;
 }
 
 @media (max-width: 480px) {
@@ -206,6 +240,10 @@ body {
     }
     
     .layout-switch {
+        display: none;
+    }
+    
+    .clear-btn {
         display: none;
     }
 }

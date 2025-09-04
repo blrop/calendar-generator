@@ -1,11 +1,50 @@
 let currentDate = new Date();
+let coloredDays = new Set();
 
 const monthNames = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
+// Load colored days from localStorage
+function loadColoredDays() {
+    const saved = localStorage.getItem('calendarColoredDays');
+    if (saved) {
+        coloredDays = new Set(JSON.parse(saved));
+    }
+}
+
+// Save colored days to localStorage
+function saveColoredDays() {
+    localStorage.setItem('calendarColoredDays', JSON.stringify([...coloredDays]));
+}
+
+// Generate unique key for a date
+function getDateKey(date) {
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+}
+
+// Toggle day color
+function toggleDayColor(date) {
+    const dateKey = getDateKey(date);
+    if (coloredDays.has(dateKey)) {
+        coloredDays.delete(dateKey);
+    } else {
+        coloredDays.add(dateKey);
+    }
+    saveColoredDays();
+    updateCalendar();
+}
+
+// Clear all colored days
+function clearAllColoredDays() {
+    coloredDays.clear();
+    saveColoredDays();
+    updateCalendar();
+}
+
 function initCalendar() {
+    loadColoredDays();
     updateCalendar();
 }
 
@@ -49,13 +88,22 @@ function updateCalendar() {
             // Only show days that belong to the current month
             if (date.getMonth() === month) {
                 const dayElement = document.createElement('div');
-                dayElement.className = 'calendar-day';
+                dayElement.className = 'calendar-day clickable';
                 dayElement.textContent = date.getDate();
                 
                 // Check if it's weekend (Saturday = 6, Sunday = 0)
                 if (date.getDay() === 6 || date.getDay() === 0) {
                     dayElement.classList.add('weekend');
                 }
+                
+                // Check if this day is colored
+                const dateKey = getDateKey(date);
+                if (coloredDays.has(dateKey)) {
+                    dayElement.classList.add('colored');
+                }
+                
+                // Add click event
+                dayElement.onclick = () => toggleDayColor(date);
                 
                 calendarGrid.appendChild(dayElement);
             } else {
