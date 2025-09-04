@@ -15,23 +15,24 @@
         </div>
         
         <div class="layout-switch">
-            <label class="radio-label">
-                <input type="radio" name="layout" value="vertical" checked onchange="changeLayout()">
-                <span>Vertical</span>
-            </label>
-            <label class="radio-label">
-                <input type="radio" name="layout" value="horizontal" onchange="changeLayout()">
-                <span>Horizontal</span>
-            </label>
+            <div class="layout-controls">
+                <label class="radio-label">
+                    <input type="radio" name="layout" value="vertical" checked onchange="changeLayout()">
+                    <span>Vertical</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="layout" value="horizontal" onchange="changeLayout()">
+                    <span>Horizontal</span>
+                </label>
+            </div>
+            <button class="clear-btn" onclick="clearAllColoredDays()">Reset All Custom Holidays</button>
         </div>
         
         <div id="yearContainer">
             <!-- All 12 months will be generated here -->
         </div>
         
-        <div class="calendar-footer">
-            <button class="clear-btn" onclick="clearAllColoredDays()">Reset All Custom Holidays</button>
-        </div>
+        <div class="calendar-footer"></div>
     </div>
 
     <script src="script.js"></script>
