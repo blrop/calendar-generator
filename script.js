@@ -73,7 +73,6 @@ function updateCalendar() {
         
         // Get first day of month and number of days
         const firstDay = new Date(year, month, 1);
-        const lastDay = new Date(year, month + 1, 0);
         const startDate = new Date(firstDay);
         // Adjust for Monday start: Sunday is 0, Monday is 1, etc.
         const dayOfWeek = firstDay.getDay();

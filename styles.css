@@ -6,7 +6,6 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: white;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -15,7 +14,6 @@ body {
 }
 
 .calendar-container {
-    background: white;
     max-width: 1000px;
     width: 100%;
 }
@@ -25,7 +23,6 @@ body {
     display: inline-block;
     width: 33.33%;
     vertical-align: top;
-    box-sizing: border-box;
 }
 
 .year-header {
@@ -123,12 +120,7 @@ body {
     text-align: right;
     min-height: 20px;
     width: calc(100% / 7);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: black;
     font-size: 12px;
-    box-sizing: border-box;
 }
 
 .calendar-grid.vertical .calendar-day {
@@ -167,23 +159,10 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
-    white-space: nowrap;
 }
 
 .clear-btn:hover {
     background: #d32f2f;
-}
-
-@media (max-width: 480px) {
-    .calendar-container {
-        margin: 10px;
-    }
-    
-    .calendar-day {
-        padding: 6px 4px;
-        min-height: 30px;
-        font-size: 14px;
-    }
 }
 
 @media print {
@@ -195,7 +174,6 @@ body {
     
     .calendar-container {
         max-width: 100%;
-        box-shadow: none;
     }
     
     .month-container {
@@ -223,7 +201,7 @@ body {
     }
     
     .calendar-day {
-        padding: 2px 0px;
+        padding: 2px 0;
         min-height: 16px;
         font-size: 10px;
         text-align: right;
