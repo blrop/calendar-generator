@@ -145,6 +145,11 @@ body {
     color: #d32f2f;
 }
 
+/* When a weekend day is toggled, switch it to black instead of red */
+.calendar-day.weekend.colored {
+    color: black;
+}
+
 .calendar-footer {
     padding: 20px;
     text-align: center;
